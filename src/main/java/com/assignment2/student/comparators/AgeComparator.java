@@ -1,12 +1,12 @@
 package com.assignment2.student.comparators;
 
 import com.assignment2.student.Student;
-
 import java.util.Comparator;
 
+@SuppressWarnings("PMD.CommentRequired")
 public class AgeComparator implements Comparator<Student> {
   @Override
-  public int compare(Student student1, Student student2) {
+  public int compare(final Student student1, final Student student2) {
     int result;
     if (student1.getAge() > student2.getAge()) {
       result = 1;

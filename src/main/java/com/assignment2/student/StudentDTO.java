@@ -1,14 +1,14 @@
 package com.assignment2.student;
 
-import java.util.Set;
 import java.util.TreeSet;
 
+@SuppressWarnings("PMD.CommentRequired")
 public class StudentDTO {
   private String fullName;
   private String age;
   private String address;
   private String rollNumber;
-  Set<String> courses;
+  private TreeSet<String> courses;
 
   public StudentDTO(final String fullName,
                     final String age,
@@ -26,7 +26,7 @@ public class StudentDTO {
     return fullName;
   }
 
-  public void setFullName(String fullName) {
+  public void setFullName(final String fullName) {
     this.fullName = fullName;
   }
 
@@ -34,7 +34,7 @@ public class StudentDTO {
     return age;
   }
 
-  public void setAge(String age) {
+  public void setAge(final String age) {
     this.age = age;
   }
 
@@ -42,7 +42,7 @@ public class StudentDTO {
     return address;
   }
 
-  public void setAddress(String address) {
+  public void setAddress(final String address) {
     this.address = address;
   }
 
@@ -50,15 +50,15 @@ public class StudentDTO {
     return rollNumber;
   }
 
-  public void setRollNumber(String rollNumber) {
+  public void setRollNumber(final String rollNumber) {
     this.rollNumber = rollNumber;
   }
 
-  public Set<String> getCourses() {
+  public TreeSet<String> getCourses() {
     return courses;
   }
 
-  public void setCourses(Set<String> courses) {
+  public void setCourses(final TreeSet<String> courses) {
     this.courses = courses;
   }
 }

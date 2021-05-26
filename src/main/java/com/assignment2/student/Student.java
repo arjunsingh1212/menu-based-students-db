@@ -1,16 +1,20 @@
 package com.assignment2.student;
 
 import com.assignment2.student.comparators.RollNumberComparator;
-
-import java.util.Set;
+import java.io.Serializable;
 import java.util.TreeSet;
 
-public class Student implements Comparable<Student> {
+@SuppressWarnings("PMD.CommentRequired")
+public class Student implements Comparable<Student>, Serializable {
+  public static final long serialVersionUID = 432874324;
   private String fullName;
   private int age;
   private String address;
   private int rollNumber;
-  Set<Character> courses;
+  private TreeSet<Character> courses;
+
+  public Student() {
+  }
 
   public Student(final String fullName,
                  final int age,
@@ -28,7 +32,7 @@ public class Student implements Comparable<Student> {
     return fullName;
   }
 
-  public void setFullName(String fullName) {
+  public void setFullName(final String fullName) {
     this.fullName = fullName;
   }
 
@@ -36,7 +40,7 @@ public class Student implements Comparable<Student> {
     return age;
   }
 
-  public void setAge(int age) {
+  public void setAge(final int age) {
     this.age = age;
   }
 
@@ -44,7 +48,7 @@ public class Student implements Comparable<Student> {
     return address;
   }
 
-  public void setAddress(String address) {
+  public void setAddress(final String address) {
     this.address = address;
   }
 
@@ -52,21 +56,21 @@ public class Student implements Comparable<Student> {
     return rollNumber;
   }
 
-  public void setRollNumber(int rollNumber) {
+  public void setRollNumber(final int rollNumber) {
     this.rollNumber = rollNumber;
   }
 
-  public Set<Character> getCourses() {
+  public TreeSet<Character> getCourses() {
     return courses;
   }
 
-  public void setCourses(Set<Character> courses) {
+  public void setCourses(final TreeSet<Character> courses) {
     this.courses = courses;
   }
 
   @Override
-  public int compareTo(Student studentObject) {
-    int comparison = this.fullName.compareTo(studentObject.getFullName());
+  public int compareTo(final Student studentObject) {
+    final int comparison = this.fullName.compareTo(studentObject.getFullName());
     int result;
     if (comparison > 0) {
       result = 1;
@@ -78,7 +82,8 @@ public class Student implements Comparable<Student> {
     return result;
   }
 
+  @Override
   public String toString() {
-    return fullName+age+address+courses.toString();
+    return fullName + age + address + courses.toString();
   }
 }
