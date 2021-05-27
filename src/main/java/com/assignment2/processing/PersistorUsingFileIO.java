@@ -1,7 +1,7 @@
 package com.assignment2.processing;
 
 import com.assignment2.processing.interfaces.Persistent;
-import com.assignment2.readerwriter.ReaderWriter;
+import com.assignment2.readerwriter.Utility;
 import com.assignment2.student.Student;
 import java.io.EOFException;
 import java.io.File;
@@ -26,7 +26,7 @@ public class PersistorUsingFileIO implements Persistent {
       objectOutputStream.close();
       fileOutputStream.close();
     } catch (IOException e) {
-      new ReaderWriter().showMessage(e.getMessage());
+      new Utility().showMessage(e.getMessage());
     }
   }
 
@@ -45,12 +45,12 @@ public class PersistorUsingFileIO implements Persistent {
           student = (Student) objectInputStream.readObject();
         }
       } catch (EOFException except) {
-        new ReaderWriter().showMessage("Loading Done.");
+        new Utility().showMessage("Loading Done.");
       }
       objectInputStream.close();
       fileInputStream.close();
     } catch (ClassNotFoundException | IOException e) {
-      new ReaderWriter().showMessage(e.getMessage());
+      new Utility().showMessage(e.getMessage());
     }
     return students;
   }
