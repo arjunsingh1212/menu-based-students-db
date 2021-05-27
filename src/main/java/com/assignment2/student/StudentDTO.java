@@ -2,7 +2,6 @@ package com.assignment2.student;
 
 import java.util.TreeSet;
 
-@SuppressWarnings("PMD.CommentRequired")
 public class StudentDTO {
   private String fullName;
   private String age;

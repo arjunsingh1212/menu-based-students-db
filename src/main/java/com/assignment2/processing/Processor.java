@@ -1,18 +1,17 @@
 package com.assignment2.processing;
 
-import com.assignment2.exceptions.RuntimeExceptionCustom;
+import com.assignment2.exceptions.GenericApplicationException;
 import com.assignment2.student.Student;
 import com.assignment2.student.StudentDTO;
 import com.assignment2.student.comparators.RollNumberComparator;
 import java.util.ArrayList;
 import java.util.Collections;
 
-@SuppressWarnings({"PMD.DataflowAnomalyAnalysis","PMD.CommentRequired"})
 public class Processor {
 
   public ArrayList<Student> addAfterValidation(
           final ArrayList<Student> students, final StudentDTO studentDTO)
-          throws RuntimeExceptionCustom {
+          throws GenericApplicationException {
     final Student student = new Validator().validate(studentDTO);
     Collections.sort(students);
     //Binary search for the record
@@ -24,8 +23,8 @@ public class Processor {
     while (low <= high) {
       mid = (low + high) / 2;
       stud = students.get(mid);
-      if (student.compareTo(stud) == 0 ||
-              student.getRollNumber()==stud.getRollNumber()) {
+      if (student.compareTo(stud) == 0
+              || student.getRollNumber() == stud.getRollNumber()) {
         index = mid;
         break;
       } else if (student.compareTo(stud) > 0) {
@@ -35,7 +34,7 @@ public class Processor {
       }
     }
     if (index >= 0) {
-      throw new RuntimeExceptionCustom(
+      throw new GenericApplicationException(
               "Student Record Already Present at index " + index);
     }
     students.add(student);
@@ -44,7 +43,7 @@ public class Processor {
 
   public ArrayList<Student> deleteIfRecordExists(
           final ArrayList<Student> students, final int rollNumber)
-          throws RuntimeExceptionCustom {
+          throws GenericApplicationException {
     students.sort(new RollNumberComparator());
     //Binary search according to roll number
     int index = -1;
@@ -65,7 +64,7 @@ public class Processor {
       }
     }
     if (index == -1) {
-      throw new RuntimeExceptionCustom("Student record not existing");
+      throw new GenericApplicationException("Student record not existing");
     }
     students.remove(index);
     return students;

@@ -3,7 +3,7 @@ package com.assignment2;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.assignment2.exceptions.RuntimeExceptionCustom;
+import com.assignment2.exceptions.GenericApplicationException;
 import com.assignment2.processing.Processor;
 import com.assignment2.student.Student;
 import com.assignment2.student.StudentDTO;
@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 class ProcessorTest {
 
   @Test
-  void addAfterValidationTest() throws RuntimeExceptionCustom {
+  void addAfterValidationTest() throws GenericApplicationException {
     TreeSet<String> myCourses = new TreeSet<>();
     myCourses.add("A");
     myCourses.add("B");
@@ -53,12 +53,12 @@ class ProcessorTest {
             "317 N Block", "30", myCourses);
     ArrayList<Student> studentsTest = new ArrayList<>();
 
-    assertThrows(RuntimeExceptionCustom.class, () -> new Processor().addAfterValidation(
+    assertThrows(GenericApplicationException.class, () -> new Processor().addAfterValidation(
             studentsTest, studentDTO));
   }
 
   @Test
-  void deleteIfRecordExistsTest() throws RuntimeExceptionCustom {
+  void deleteIfRecordExistsTest() throws GenericApplicationException {
     ArrayList<Student> students = new ArrayList<>();
 
     TreeSet<Character> courses = new TreeSet<>();
@@ -84,7 +84,7 @@ class ProcessorTest {
 
     int rollNumber = 2017021030;
 
-    assertThrows(RuntimeExceptionCustom.class, () -> new Processor().deleteIfRecordExists(
+    assertThrows(GenericApplicationException.class, () -> new Processor().deleteIfRecordExists(
             studentsTest, rollNumber));
   }
 }

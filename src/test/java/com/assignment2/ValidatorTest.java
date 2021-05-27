@@ -3,7 +3,7 @@ package com.assignment2;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.assignment2.exceptions.RuntimeExceptionCustom;
+import com.assignment2.exceptions.GenericApplicationException;
 import com.assignment2.processing.Validator;
 import com.assignment2.processing.interfaces.Valid;
 import com.assignment2.student.Student;
@@ -19,16 +19,16 @@ class ValidatorTest {
   private final TreeSet<Character> courses = new TreeSet<>();
   private final TreeSet<String> myCourses = new TreeSet<>();
 
-  private Valid validObj;
+  private Valid validator;
 
   @BeforeEach
   void createObject() {
-    validObj = new Validator();
+    validator = new Validator();
   }
 
   @Test
   @DisplayName("Testing the validator (Should Pass)")
-  void validatorTest1() throws RuntimeExceptionCustom {
+  void validatorTest1() throws GenericApplicationException {
     courses.add('A');
     courses.add('B');
     courses.add('C');
@@ -41,7 +41,7 @@ class ValidatorTest {
     myCourses.add("B");
     myCourses.add("C");
     myCourses.add("D");
-    assertEquals(student.toString(), validObj.validate(new StudentDTO(
+    assertEquals(student.toString(), validator.validate(new StudentDTO(
             "Arjun Singh", "22",
             "317 N Block",
             "2017021030", myCourses)).toString());
@@ -49,7 +49,7 @@ class ValidatorTest {
 
   @Test
   @DisplayName("Testing the validator (Should Pass)")
-  void validatorTest2() throws RuntimeExceptionCustom {
+  void validatorTest2() throws GenericApplicationException {
     courses.add('A');
     courses.add('B');
     courses.add('C');
@@ -61,7 +61,7 @@ class ValidatorTest {
     myCourses.add("B");
     myCourses.add("C");
     myCourses.add("D");
-    assertEquals(student.toString(), validObj.validate(new StudentDTO(
+    assertEquals(student.toString(), validator.validate(new StudentDTO(
             "Arpit Patel", "21", "Lucknow",
             "2017021031", myCourses)).toString());
   }
@@ -73,7 +73,7 @@ class ValidatorTest {
     myCourses.add("B");
     myCourses.add("C");
     myCourses.add("D");
-    assertThrows(RuntimeExceptionCustom.class, () -> validObj.validate(new StudentDTO(
+    assertThrows(GenericApplicationException.class, () -> validator.validate(new StudentDTO(
             "Arjun12121212", "22",
             "317 N Block", "2017021030", myCourses)));
   }
@@ -85,7 +85,7 @@ class ValidatorTest {
     myCourses.add("B");
     myCourses.add("C");
     myCourses.add("D");
-    assertThrows(RuntimeExceptionCustom.class, () -> validObj.validate(new StudentDTO(
+    assertThrows(GenericApplicationException.class, () -> validator.validate(new StudentDTO(
             "Arjun Singh Arjun Singh Arjun Singh Arjun Singh",
             "22", "317 N Block", "2017021030", myCourses)));
   }
@@ -98,7 +98,7 @@ class ValidatorTest {
     myCourses.add("B");
     myCourses.add("C");
     myCourses.add("D");
-    assertThrows(RuntimeExceptionCustom.class, () -> validObj.validate(new StudentDTO(
+    assertThrows(GenericApplicationException.class, () -> validator.validate(new StudentDTO(
             "Arjun Singh", "22.5",
             "317 N Block", "2017021030", myCourses)));
   }
@@ -111,7 +111,7 @@ class ValidatorTest {
     myCourses.add("B");
     myCourses.add("C");
     myCourses.add("D");
-    assertThrows(RuntimeExceptionCustom.class, () -> validObj.validate(new StudentDTO(
+    assertThrows(GenericApplicationException.class, () -> validator.validate(new StudentDTO(
             "Arjun Singh", "Twenty Two",
             "317 N Block", "2017021030", myCourses)));
   }
@@ -124,7 +124,7 @@ class ValidatorTest {
     myCourses.add("B");
     myCourses.add("C");
     myCourses.add("D");
-    assertThrows(RuntimeExceptionCustom.class, () -> validObj.validate(new StudentDTO(
+    assertThrows(GenericApplicationException.class, () -> validator.validate(new StudentDTO(
             "Arjun Singh", "0", "317 N Block",
             "2017021030", myCourses)));
   }
@@ -137,7 +137,7 @@ class ValidatorTest {
     myCourses.add("B");
     myCourses.add("C");
     myCourses.add("D");
-    assertThrows(RuntimeExceptionCustom.class, () -> validObj.validate(new StudentDTO(
+    assertThrows(GenericApplicationException.class, () -> validator.validate(new StudentDTO(
             "Arjun Singh", "200", "317 N Block",
             "2017021030", myCourses)));
   }
@@ -150,7 +150,7 @@ class ValidatorTest {
     myCourses.add("B");
     myCourses.add("C");
     myCourses.add("D");
-    assertThrows(RuntimeExceptionCustom.class, () -> validObj.validate(new StudentDTO(
+    assertThrows(GenericApplicationException.class, () -> validator.validate(new StudentDTO(
             "Arjun Singh", "22", "317232323",
             "2017021030", myCourses)));
   }
@@ -163,7 +163,7 @@ class ValidatorTest {
     myCourses.add("B");
     myCourses.add("C");
     myCourses.add("D");
-    assertThrows(RuntimeExceptionCustom.class, () -> validObj.validate(new StudentDTO(
+    assertThrows(GenericApplicationException.class, () -> validator.validate(new StudentDTO(
             "Arjun Singh", "22", "B Block 345 sdkcijbi"
             + "sk sckijnksjdnckjsdnc knckisdbcisdbciscbi cisduj"
             + "bcisdb", "2017021030", myCourses)));
@@ -177,7 +177,7 @@ class ValidatorTest {
     myCourses.add("B");
     myCourses.add("C");
     myCourses.add("D");
-    assertThrows(RuntimeExceptionCustom.class, () -> validObj.validate(new StudentDTO(
+    assertThrows(GenericApplicationException.class, () -> validator.validate(new StudentDTO(
             "Arjun Singh", "22", "   ",
             "2017021030", myCourses)));
   }
@@ -190,7 +190,7 @@ class ValidatorTest {
     myCourses.add("B");
     myCourses.add("C");
     myCourses.add("D");
-    assertThrows(RuntimeExceptionCustom.class, () -> validObj.validate(new StudentDTO(
+    assertThrows(GenericApplicationException.class, () -> validator.validate(new StudentDTO(
             "Arjun Singh", "22", "317 N Block",
             "201702103012331231231231", myCourses)));
   }
@@ -203,7 +203,7 @@ class ValidatorTest {
     myCourses.add("B");
     myCourses.add("C");
     myCourses.add("D");
-    assertThrows(RuntimeExceptionCustom.class, () -> validObj.validate(new StudentDTO(
+    assertThrows(GenericApplicationException.class, () -> validator.validate(new StudentDTO(
             "Arjun Singh", "22", "317 N Block",
             "  ", myCourses)));
   }
@@ -216,7 +216,7 @@ class ValidatorTest {
     myCourses.add("B");
     myCourses.add("C");
     myCourses.add("D");
-    assertThrows(RuntimeExceptionCustom.class, () -> validObj.validate(new StudentDTO(
+    assertThrows(GenericApplicationException.class, () -> validator.validate(new StudentDTO(
             "Arjun Singh", "22",
             "317 N Block", "0", myCourses)));
   }
@@ -229,7 +229,7 @@ class ValidatorTest {
     myCourses.add("B");
     myCourses.add("C");
     myCourses.add("C");
-    assertThrows(RuntimeExceptionCustom.class, () -> validObj.validate(new StudentDTO(
+    assertThrows(GenericApplicationException.class, () -> validator.validate(new StudentDTO(
             "Arjun Singh", "22", "317 N Block",
             "2017021030", myCourses)));
   }
@@ -242,7 +242,7 @@ class ValidatorTest {
     myCourses.add("B");
     myCourses.add("Cat");
     myCourses.add("Dog12");
-    assertThrows(RuntimeExceptionCustom.class, () -> validObj.validate(new StudentDTO(
+    assertThrows(GenericApplicationException.class, () -> validator.validate(new StudentDTO(
             "Arjun Singh", "22", "317 N Block",
             "2017021030", myCourses)));
   }
@@ -255,7 +255,7 @@ class ValidatorTest {
     myCourses.add(" ");
     myCourses.add("C");
     myCourses.add("D");
-    assertThrows(RuntimeExceptionCustom.class, () -> validObj.validate(new StudentDTO(
+    assertThrows(GenericApplicationException.class, () -> validator.validate(new StudentDTO(
             " ", "22", "317 N Block", " ", myCourses)));
   }
 }

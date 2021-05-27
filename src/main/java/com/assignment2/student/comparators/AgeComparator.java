@@ -3,7 +3,6 @@ package com.assignment2.student.comparators;
 import com.assignment2.student.Student;
 import java.util.Comparator;
 
-@SuppressWarnings("PMD.CommentRequired")
 public class AgeComparator implements Comparator<Student> {
   @Override
   public int compare(final Student student1, final Student student2) {

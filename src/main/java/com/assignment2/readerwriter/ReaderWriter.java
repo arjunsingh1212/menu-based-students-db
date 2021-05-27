@@ -1,4 +1,4 @@
-package com.assignment2.userinterface;
+package com.assignment2.readerwriter;
 
 import com.assignment2.enums.Option;
 import com.assignment2.enums.Order;
@@ -11,8 +11,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
-@SuppressWarnings({"PMD.SystemPrintln","PMD.CommentRequired"})
-public class UserInterface {
+@SuppressWarnings({"PMD.SystemPrintln"})
+public class ReaderWriter {
 
   private final transient BufferedReader bufferedReader = new BufferedReader(
           new InputStreamReader(System.in));

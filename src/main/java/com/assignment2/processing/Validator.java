@@ -1,12 +1,11 @@
 package com.assignment2.processing;
 
-import com.assignment2.exceptions.RuntimeExceptionCustom;
+import com.assignment2.exceptions.GenericApplicationException;
 import com.assignment2.processing.interfaces.Valid;
 import com.assignment2.student.Student;
 import com.assignment2.student.StudentDTO;
 import java.util.TreeSet;
 
-@SuppressWarnings({"PMD.DataflowAnomalyAnalysis","PMD.CommentRequired","PMD.LooseCoupling"})
 public class Validator implements Valid {
 
   private boolean validateName(final String name) {
@@ -49,27 +48,27 @@ public class Validator implements Valid {
   }
 
   @Override
-  public Student validate(final StudentDTO studentDTO) throws RuntimeExceptionCustom {
+  public Student validate(final StudentDTO studentDTO) throws GenericApplicationException {
     final Student student = new Student();
     if (validateName(studentDTO.getFullName())) {
       student.setFullName(studentDTO.getFullName());
     } else {
-      throw new RuntimeExceptionCustom("Invalid Name Exception");
+      throw new GenericApplicationException("Invalid Name Exception");
     }
     if (validateAge(studentDTO.getAge())) {
       student.setAge(Integer.parseInt(studentDTO.getAge()));
     } else {
-      throw new RuntimeExceptionCustom("Invalid Age Exception");
+      throw new GenericApplicationException("Invalid Age Exception");
     }
     if (validateAddress(studentDTO.getAddress())) {
       student.setAddress(studentDTO.getAddress());
     } else {
-      throw new RuntimeExceptionCustom("Invalid Address Exception");
+      throw new GenericApplicationException("Invalid Address Exception");
     }
     if (validateRollNo(studentDTO.getRollNumber())) {
       student.setRollNumber(Integer.parseInt(studentDTO.getRollNumber()));
     } else {
-      throw new RuntimeExceptionCustom("Invalid Roll Number Exception");
+      throw new GenericApplicationException("Invalid Roll Number Exception");
     }
     if (validateCourses(studentDTO.getCourses())) {
       final TreeSet<String> myCourses = studentDTO.getCourses();
@@ -79,7 +78,7 @@ public class Validator implements Valid {
       }
       student.setCourses(newCourses);
     } else {
-      throw new RuntimeExceptionCustom("Invalid Courses Exception");
+      throw new GenericApplicationException("Invalid Courses Exception");
     }
     return student;
   }

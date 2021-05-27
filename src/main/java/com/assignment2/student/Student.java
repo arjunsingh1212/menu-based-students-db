@@ -4,7 +4,6 @@ import com.assignment2.student.comparators.RollNumberComparator;
 import java.io.Serializable;
 import java.util.TreeSet;
 
-@SuppressWarnings("PMD.CommentRequired")
 public class Student implements Comparable<Student>, Serializable {
   public static final long serialVersionUID = 432874324;
   private String fullName;

@@ -1,8 +1,8 @@
 package com.assignment2.processing;
 
 import com.assignment2.processing.interfaces.Persistent;
+import com.assignment2.readerwriter.ReaderWriter;
 import com.assignment2.student.Student;
-import com.assignment2.userinterface.UserInterface;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,7 +12,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-@SuppressWarnings({"PMD.DataflowAnomalyAnalysis","PMD.CommentRequired"})
 public class PersistorUsingFileIO implements Persistent {
 
   @Override
@@ -27,7 +26,7 @@ public class PersistorUsingFileIO implements Persistent {
       objectOutputStream.close();
       fileOutputStream.close();
     } catch (IOException e) {
-      new UserInterface().showMessage(e.getMessage());
+      new ReaderWriter().showMessage(e.getMessage());
     }
   }
 
@@ -46,12 +45,12 @@ public class PersistorUsingFileIO implements Persistent {
           student = (Student) objectInputStream.readObject();
         }
       } catch (EOFException except) {
-        new UserInterface().showMessage("Loading Done.");
+        new ReaderWriter().showMessage("Loading Done.");
       }
       objectInputStream.close();
       fileInputStream.close();
     } catch (ClassNotFoundException | IOException e) {
-      new UserInterface().showMessage(e.getMessage());
+      new ReaderWriter().showMessage(e.getMessage());
     }
     return students;
   }
