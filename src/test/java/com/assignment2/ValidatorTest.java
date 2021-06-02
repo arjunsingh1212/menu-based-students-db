@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.assignment2.exceptions.GenericApplicationException;
 import com.assignment2.processing.Validator;
-import com.assignment2.processing.interfaces.Valid;
+import com.assignment2.interfaces.Valid;
 import com.assignment2.student.Student;
 import com.assignment2.student.StudentDTO;
 import java.util.TreeSet;

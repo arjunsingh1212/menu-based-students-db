@@ -1,9 +1,10 @@
 package com.assignment2.processing;
 
 import com.assignment2.exceptions.GenericApplicationException;
-import com.assignment2.processing.interfaces.Valid;
+import com.assignment2.interfaces.Valid;
 import com.assignment2.student.Student;
 import com.assignment2.student.StudentDTO;
+
 import java.util.TreeSet;
 
 public class Validator implements Valid {
@@ -53,22 +54,26 @@ public class Validator implements Valid {
     if (validateName(studentDTO.getFullName())) {
       student.setFullName(studentDTO.getFullName());
     } else {
-      throw new GenericApplicationException("Invalid Name Exception");
+      throw new GenericApplicationException("Invalid Name Exception : "
+              + studentDTO.getFullName());
     }
     if (validateAge(studentDTO.getAge())) {
       student.setAge(Integer.parseInt(studentDTO.getAge()));
     } else {
-      throw new GenericApplicationException("Invalid Age Exception");
+      throw new GenericApplicationException("Invalid Age Exception : "
+              + studentDTO.getAge());
     }
     if (validateAddress(studentDTO.getAddress())) {
       student.setAddress(studentDTO.getAddress());
     } else {
-      throw new GenericApplicationException("Invalid Address Exception");
+      throw new GenericApplicationException("Invalid Address Exception : "
+              + studentDTO.getAddress());
     }
     if (validateRollNo(studentDTO.getRollNumber())) {
       student.setRollNumber(Integer.parseInt(studentDTO.getRollNumber()));
     } else {
-      throw new GenericApplicationException("Invalid Roll Number Exception");
+      throw new GenericApplicationException("Invalid Roll Number Exception : "
+              + studentDTO.getRollNumber());
     }
     if (validateCourses(studentDTO.getCourses())) {
       final TreeSet<String> myCourses = studentDTO.getCourses();
@@ -78,7 +83,8 @@ public class Validator implements Valid {
       }
       student.setCourses(newCourses);
     } else {
-      throw new GenericApplicationException("Invalid Courses Exception");
+      throw new GenericApplicationException("Invalid Courses Exception : "
+              + studentDTO.getCourses().toString());
     }
     return student;
   }

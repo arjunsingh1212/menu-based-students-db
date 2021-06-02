@@ -1,89 +1,86 @@
 package com.assignment2;
 
 import com.assignment2.enums.Option;
-import com.assignment2.exceptions.GenericApplicationException;
-import com.assignment2.processing.PersistorUsingFileIO;
+import com.assignment2.processing.ReadWriteFileIO;
 import com.assignment2.processing.Processor;
-import com.assignment2.processing.interfaces.ReaderWriter;
-import com.assignment2.readerwriter.ReaderCLI;
-import com.assignment2.readerwriter.Utility;
-import com.assignment2.readerwriter.WriterCLI;
-import com.assignment2.readerwriter.interfaces.ReaderStudentEntity;
-import com.assignment2.readerwriter.interfaces.WriterStudentEntity;
+import com.assignment2.commandline.ReaderCLI;
+import com.assignment2.printer.Print;
+import com.assignment2.commandline.WriterCLI;
 import com.assignment2.student.Student;
-import com.assignment2.student.StudentDTO;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public final class Runner {
 
   private static final String filepath = "src\\main\\java\\com\\assignment2\\StudentsDB.txt";
   private static final Processor processor = new Processor();
-  private static final Utility UTILITY = new Utility();
-  private static final ReaderWriter persistor = new PersistorUsingFileIO(filepath);
-  private static final ReaderStudentEntity reader = new ReaderCLI();
-  private static final WriterStudentEntity writer = new WriterCLI();
+  private static final Print PRINT = new Print();
+  private static final ReadWriteFileIO persistor = new ReadWriteFileIO(filepath);
+  private static final ReaderCLI reader = new ReaderCLI();
+  private static final WriterCLI writer = new WriterCLI();
+
+  private static final transient BufferedReader bufferedReader = new BufferedReader(
+          new InputStreamReader(System.in));
 
   private Runner() {
   }
 
   public static void main(final String[] args) throws IOException {
 
+    ArrayList<Student> students = persistor.read();
 
-    ArrayList<Student> students = persistor.load();
-
-    StudentDTO studentDTO;
+    ArrayList<Student> studentsCLI;
 
     boolean shouldExit = false;
     while (!shouldExit) {
       try {
-        final Option option = UTILITY.displayMainMenu(); //Input option
+        PRINT.displayMainMenu(); //Input option
+        final Option option = Option.valueOf(bufferedReader.readLine());
         switch (option) {
           case ADD:
-            studentDTO = reader.readDetails();
+            studentsCLI = reader.read();
             try {
-              students = processor.addAfterValidation(students, studentDTO);
-              UTILITY.showMessage("Successfully Added the record!");
+              students = processor.addIfNoDuplicate(students, studentsCLI);
+              PRINT.showMessage("Successfully Added the record!");
             } catch (Exception except) {
-              UTILITY.showMessage("Invalid format or "
+              PRINT.showMessage("Invalid format or "
                       + "record/roll-number already existing");
             }
             break;
           case DISPLAY:
-            try {
-              writer.writeDetails(students);
-            } catch (GenericApplicationException exception) {
-              UTILITY.showMessage(exception.getMessage());
-            }
+            writer.write(students);
             break;
           case DELETE:
             //Input roll number
-            final int rollNoToDelete = UTILITY.deleteStudent();
+            PRINT.displayDeleteMenu();
+            final int rollNoToDelete = Integer.parseInt(bufferedReader.readLine());
             try {
               students = processor.deleteIfRecordExists(students, rollNoToDelete);
-              UTILITY.showMessage("Successfully Deleted");
+              PRINT.showMessage("Successfully Deleted");
             } catch (Exception exception) {
-              UTILITY.showMessage("Roll number not in records!");
+              PRINT.showMessage("Roll number not in records!");
             }
             break;
           case SAVE:
             try {
-              persistor.store(students);
-              UTILITY.showMessage("Successfully Saved");
+              persistor.write(students);
+              PRINT.showMessage("Successfully Saved");
             } catch (Exception exception) {
-              UTILITY.showMessage("Failed to save!");
+              PRINT.showMessage("Failed to save!");
             }
             break;
           case EXIT:
-            UTILITY.showMessage("Thank You for using the application..");
+            PRINT.showMessage("Thank You for using the application..");
             shouldExit = true;
             break;
           default:
-            UTILITY.showMessage("Invalid Input! Please Enter a valid Input!");
+            PRINT.showMessage("Invalid Input! Please Enter a valid Input!");
             break;
         }
       } catch (IllegalArgumentException exception) {
-        UTILITY.showMessage("Sorry, you entered Invalid input. "
+        PRINT.showMessage("Sorry, you entered Invalid input. "
                 + "Please enter the inputs as shows in Brackets of the option.");
       }
     }

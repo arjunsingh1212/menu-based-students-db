@@ -2,35 +2,36 @@ package com.assignment2.processing;
 
 import com.assignment2.exceptions.GenericApplicationException;
 import com.assignment2.student.Student;
-import com.assignment2.student.StudentDTO;
+
 import java.util.ArrayList;
 
 public class Processor {
 
   //Binary search is costly as it would need Sorting
+
   /**
-  private int binarySearch(final ArrayList<Student> students, final int rollNumber) {
-    students.sort(new RollNumberComparator());
-    //Binary search according to roll number
-    int index = -1;
-    int low = 0;
-    int high = students.size() - 1;
-    int mid;
-    Student stud;
-    while (low <= high) {
-      mid = (low + high) / 2;
-      stud = students.get(mid);
-      if (stud.getRollNumber() == rollNumber) {
-        index = mid;
-        break;
-      } else if (stud.getRollNumber() < rollNumber) {
-        low = mid + 1;
-      } else {
-        high = mid - 1;
-      }
-    }
-    return index;
-  }
+   * private int binarySearch(final ArrayList<Student> students, final int rollNumber) {
+   * students.sort(new RollNumberComparator());
+   * //Binary search according to roll number
+   * int index = -1;
+   * int low = 0;
+   * int high = students.size() - 1;
+   * int mid;
+   * Student stud;
+   * while (low <= high) {
+   * mid = (low + high) / 2;
+   * stud = students.get(mid);
+   * if (stud.getRollNumber() == rollNumber) {
+   * index = mid;
+   * break;
+   * } else if (stud.getRollNumber() < rollNumber) {
+   * low = mid + 1;
+   * } else {
+   * high = mid - 1;
+   * }
+   * }
+   * return index;
+   * }
    */
 
   // Linear Search
@@ -45,16 +46,17 @@ public class Processor {
     return index;
   }
 
-  public ArrayList<Student> addAfterValidation(
-          final ArrayList<Student> students, final StudentDTO studentDTO)
-          throws GenericApplicationException {
-    final Student student = new Validator().validate(studentDTO);
-    int index = linearSearch(students, student.getRollNumber()); //return -1 if not present
-    if (index >= 0) {
-      throw new GenericApplicationException(
-              "Student Record Already Present at index " + index);
+  public ArrayList<Student> addIfNoDuplicate(
+          final ArrayList<Student> students, final ArrayList<Student> studentsCLI) {
+    for (final Student student : studentsCLI) {
+      int index = linearSearch(students, student.getRollNumber()); //return -1 if not present
+      if (index >= 0) {
+        System.out.println("Student Record Already Present with Roll Number "
+                + student.getRollNumber() + " So, duplicate record with is excluded.");
+      } else {
+        students.add(student);
+      }
     }
-    students.add(student);
     return students;
   }
 

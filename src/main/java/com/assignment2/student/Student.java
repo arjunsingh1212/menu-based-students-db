@@ -1,6 +1,7 @@
 package com.assignment2.student;
 
 import com.assignment2.student.comparators.RollNumberComparator;
+
 import java.io.Serializable;
 import java.util.TreeSet;
 
@@ -84,12 +85,14 @@ public class Student implements Comparable<Student>, Serializable {
   @Override
   public String toString() {
     return fullName + " , "
-            + age  + " , "
+            + rollNumber + " , "
+            + age + " , "
             + address + " , " + courses.toString();
   }
 
   public boolean equals(Student student) {
     return student.fullName.equals(this.fullName)
+            && student.rollNumber == this.rollNumber
             && student.age == this.age
             && student.address.equals(this.address)
             && student.courses.toString().equals(this.courses.toString());

@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.assignment2.exceptions.GenericApplicationException;
 import com.assignment2.processing.Processor;
 import com.assignment2.student.Student;
-import com.assignment2.student.StudentDTO;
 import java.util.ArrayList;
 import java.util.TreeSet;
 import org.junit.jupiter.api.Test;
@@ -15,15 +14,18 @@ import org.junit.jupiter.api.Test;
 class ProcessorTest {
 
   @Test
-  void addAfterValidationTest() throws GenericApplicationException {
-    TreeSet<String> myCourses = new TreeSet<>();
-    myCourses.add("A");
-    myCourses.add("B");
-    myCourses.add("C");
-    myCourses.add("D");
-    StudentDTO studentDTO = new StudentDTO(
-            "Arjun Singh", "22", "317 N Block",
-            "2017021030", myCourses);
+  void addAfterValidationTest() {
+    TreeSet<Character> myCourses = new TreeSet<>();
+    myCourses.add('A');
+    myCourses.add('B');
+    myCourses.add('C');
+    myCourses.add('D');
+    Student student1 = new Student(
+            "Arjun Singh", 22, "317 N Block",
+            2017021030, myCourses);
+    ArrayList<Student> studentsTemp = new ArrayList<>();
+    studentsTemp.add(student1);
+
     ArrayList<Student> studentsTest = new ArrayList<>();
 
     TreeSet<Character> courses = new TreeSet<>();
@@ -38,23 +40,7 @@ class ProcessorTest {
     students.add(student);
 
     assertEquals(students.toString(),
-            new Processor().addAfterValidation(studentsTest, studentDTO).toString());
-  }
-
-  @Test
-  void addAfterValidationTestValidationFailing() {
-    TreeSet<String> myCourses = new TreeSet<>();
-    myCourses.add("A");
-    myCourses.add("B");
-    myCourses.add("C");
-    myCourses.add("D");
-    StudentDTO studentDTO = new StudentDTO(
-            "Arjun", "220",
-            "317 N Block", "30", myCourses);
-    ArrayList<Student> studentsTest = new ArrayList<>();
-
-    assertThrows(GenericApplicationException.class, () -> new Processor().addAfterValidation(
-            studentsTest, studentDTO));
+            new Processor().addIfNoDuplicate(studentsTest, studentsTemp).toString());
   }
 
   @Test

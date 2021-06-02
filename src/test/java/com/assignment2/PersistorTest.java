@@ -1,7 +1,7 @@
 package com.assignment2;
 
-import com.assignment2.processing.PersistorUsingFileIO;
-import com.assignment2.processing.interfaces.ReaderWriter;
+import com.assignment2.processing.ReadWriteFileIO;
+import com.assignment2.interfaces.Reader;
 import com.assignment2.student.Student;
 
 import java.io.*;
@@ -17,7 +17,7 @@ class PersistorTest {
 
   private Student student1;
   private Student student2;
-  private ReaderWriter persistor;
+  private ReadWriteFileIO persistor;
 
   @BeforeEach
   void init() {
@@ -31,7 +31,7 @@ class PersistorTest {
     student2 = new Student("Arpit Patel", 21,
             "Lucknow", 2017021031, courses);
 
-    persistor = new PersistorUsingFileIO("src\\main\\java\\com\\assignment2\\StudentsDB.txt");
+    persistor = new ReadWriteFileIO("src\\main\\java\\com\\assignment2\\StudentsDB.txt");
   }
 
   @Test
@@ -40,7 +40,7 @@ class PersistorTest {
       ArrayList<Student> students = new ArrayList<>();
       students.add(student1);
       students.add(student2);
-      persistor.store(students);
+      persistor.write(students);
       FileInputStream fileInputStream = new FileInputStream(
               "src\\main\\java\\com\\assignment2\\StudentsDB.txt");
       ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
@@ -72,7 +72,7 @@ class PersistorTest {
       tempStudents.add(student2);
 
       ArrayList<Student> students;
-      students = persistor.load();
+      students = persistor.read();
 
       assertEquals(tempStudents.toString(), students.toString());
 
@@ -84,9 +84,9 @@ class PersistorTest {
 
   @Test
   void testForFileNotFound() {
-    ReaderWriter persistor = new PersistorUsingFileIO("src\\main\\java\\com\\assignment2\\childrenDB.txt");
+    Reader persistor = new ReadWriteFileIO("src\\main\\java\\com\\assignment2\\childrenDB.txt");
     final ArrayList<Student> students = new ArrayList<>();
-    assertEquals(students.toString(),persistor.load().toString());
+    assertEquals(students.toString(),persistor.read().toString());
   }
 
   void fileNotFoundExcept() throws FileNotFoundException {
