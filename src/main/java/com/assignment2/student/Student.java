@@ -83,6 +83,15 @@ public class Student implements Comparable<Student>, Serializable {
 
   @Override
   public String toString() {
-    return fullName + age + address + courses.toString();
+    return fullName + " , "
+            + age  + " , "
+            + address + " , " + courses.toString();
+  }
+
+  public boolean equals(Student student) {
+    return student.fullName.equals(this.fullName)
+            && student.age == this.age
+            && student.address.equals(this.address)
+            && student.courses.toString().equals(this.courses.toString());
   }
 }

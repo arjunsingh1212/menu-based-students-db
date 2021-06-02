@@ -4,7 +4,7 @@ import com.assignment2.enums.Option;
 import com.assignment2.exceptions.GenericApplicationException;
 import com.assignment2.processing.PersistorUsingFileIO;
 import com.assignment2.processing.Processor;
-import com.assignment2.processing.interfaces.Persistent;
+import com.assignment2.processing.interfaces.ReaderWriter;
 import com.assignment2.readerwriter.ReaderCLI;
 import com.assignment2.readerwriter.Utility;
 import com.assignment2.readerwriter.WriterCLI;
@@ -17,9 +17,10 @@ import java.util.ArrayList;
 
 public final class Runner {
 
+  private static final String filepath = "src\\main\\java\\com\\assignment2\\StudentsDB.txt";
   private static final Processor processor = new Processor();
   private static final Utility UTILITY = new Utility();
-  private static final Persistent persistor = new PersistorUsingFileIO();
+  private static final ReaderWriter persistor = new PersistorUsingFileIO(filepath);
   private static final ReaderStudentEntity reader = new ReaderCLI();
   private static final WriterStudentEntity writer = new WriterCLI();
 
@@ -28,13 +29,8 @@ public final class Runner {
 
   public static void main(final String[] args) throws IOException {
 
-    ArrayList<Student> students;
-    if (persistor.testConnectivity(
-            "src\\main\\java\\com\\assignment2\\StudentsDB.txt")) {
-      students = persistor.load();
-    } else {
-      students = new ArrayList<>();
-    }
+
+    ArrayList<Student> students = persistor.load();
 
     StudentDTO studentDTO;
 

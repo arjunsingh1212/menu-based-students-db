@@ -1,28 +1,23 @@
 package com.assignment2;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import com.assignment2.processing.PersistorUsingFileIO;
-import com.assignment2.processing.interfaces.Persistent;
+import com.assignment2.processing.interfaces.ReaderWriter;
 import com.assignment2.student.Student;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.TreeSet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class PersistorTest {
 
   private Student student1;
   private Student student2;
-  private Persistent persistor;
+  private ReaderWriter persistor;
 
   @BeforeEach
   void init() {
@@ -36,7 +31,7 @@ class PersistorTest {
     student2 = new Student("Arpit Patel", 21,
             "Lucknow", 2017021031, courses);
 
-    persistor = new PersistorUsingFileIO();
+    persistor = new PersistorUsingFileIO("src\\main\\java\\com\\assignment2\\StudentsDB.txt");
   }
 
   @Test
@@ -86,15 +81,20 @@ class PersistorTest {
     }
   }
 
-  @Test
-  void testConnectivityTest() {
-    assertTrue(persistor.testConnectivity(
-            "src\\main\\java\\com\\assignment2\\StudentsDB.txt"));
-  }
 
   @Test
-  void testConnectivityTestException() {
-    assertFalse(persistor.testConnectivity("StudentsDb.txt"));
+  void testForFileNotFound() {
+    ReaderWriter persistor = new PersistorUsingFileIO("src\\main\\java\\com\\assignment2\\childrenDB.txt");
+    final ArrayList<Student> students = new ArrayList<>();
+    assertEquals(students.toString(),persistor.load().toString());
+  }
+
+  void fileNotFoundExcept() throws FileNotFoundException {
+    new FileInputStream("src\\main\\java\\com\\assignment2\\childrenDB.txt");
+  }
+  @Test
+  void testFileNotFound2() {
+    assertThrows(FileNotFoundException.class, () -> fileNotFoundExcept());
   }
 
 }

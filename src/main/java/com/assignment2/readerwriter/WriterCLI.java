@@ -59,11 +59,7 @@ public class WriterCLI implements WriterStudentEntity {
 
     System.out.println("Name, Roll Number, Age, Address, Courses");
     for (final Student student : students) {
-      System.out.println(student.getFullName()
-              + ", " + student.getRollNumber()
-              + ", " + student.getAge()
-              + ", " + student.getAddress()
-              + ", " + student.getCourses().toString());
+      System.out.println(student.toString());
     }
   }
 }
