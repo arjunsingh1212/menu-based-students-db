@@ -72,6 +72,12 @@ public final class Runner {
             }
             break;
           case EXIT:
+            PRINT.showMessage("Do you want to save changes? (y for yes): ");
+            String confirmation = bufferedReader.readLine();
+            if(confirmation.equals("y")) {
+              persistor.write(students);
+              PRINT.showMessage("Successfully Saved");
+            }
             PRINT.showMessage("Thank You for using the application..");
             shouldExit = true;
             break;
